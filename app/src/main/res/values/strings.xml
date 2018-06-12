@@ -5,4 +5,14 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_second">SecondActivity</string>
+
+    <string-array name="main_menu_items">
+        <item>Instrucciones</item>
+        <item>Cursos</item>
+    </string-array>
+
+    <string-array name="main_menu_description">
+        <item>Reglas generales de los cursos</item>
+        <item>Lista de cursos disponibles</item>
+    </string-array>
 </resources>

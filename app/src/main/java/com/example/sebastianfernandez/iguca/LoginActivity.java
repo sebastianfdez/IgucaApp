@@ -31,9 +31,9 @@ public class LoginActivity extends AppCompatActivity {
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("personName", nameInput.getText());
-                setResult(2, intent);
+                Intent intentName = new Intent(getApplicationContext(), MainActivity.class);
+                intentName.putExtra("personName", nameInput.getText());
+                setResult(2, intentName);
                 finish();//finishing activity
             }
         });
