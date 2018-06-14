@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "593839568869",
+    "firebase_url": "https://igucapp.firebaseio.com",
+    "project_id": "igucapp",
+    "storage_bucket": "igucapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593839568869:android:dcf76bf834aeb9f7",
+        "android_client_info": {
+          "package_name": "com.example.sebastianfernandez.iguca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593839568869-ao631stfi6o6bhgkoa9anb6vu94bvlei.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "593839568869-ao631stfi6o6bhgkoa9anb6vu94bvlei.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCACX5DFNNMOy68sveOPSQs62D7kThT8vk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
