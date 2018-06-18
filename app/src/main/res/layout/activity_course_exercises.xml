@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:padding="23dp">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Examen Final Capacitacion"
+        android:textSize="35sp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="307dp"
+        android:textStyle="italic"
+        android:text="En un buen servicio el cliente busca:"
+        android:textSize="30sp" />
+
+    <RadioButton
+        android:id="@+id/alternativeARB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/alternativeBRB"
+        android:maxWidth="500dp"
+        android:layout_marginLeft="20dp"
+        android:paddingLeft="10dip"
+        android:text="A) Aumentar el numero de ventas de la empresa"
+        android:textSize="30sp" />
+
+    <RadioButton
+        android:id="@+id/alternativeBRB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/alternativeCRB"
+        android:maxWidth="500dp"
+        android:layout_marginLeft="20dp"
+        android:paddingLeft="10dip"
+        android:text="B) Aumentar la satisfacción mientras disminuye el conflicto con el cliente"
+        android:textSize="30sp" />
+
+    <RadioButton
+        android:id="@+id/alternativeCRB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/alternativeDRB"
+        android:maxWidth="500dp"
+        android:layout_marginLeft="20dp"
+        android:paddingLeft="10dip"
+        android:text="C) Disminuir el numero de clientes morosos"
+        android:textSize="30sp" />
+
+    <RadioButton
+        android:id="@+id/alternativeDRB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="84dp"
+        android:maxWidth="500dp"
+        android:layout_marginLeft="20dp"
+        android:paddingLeft="10dip"
+        android:text="D) Ninguna de las anteriores"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="215dp"
+        android:text="Pregunta X"
+        android:textStyle="bold"
+        android:textSize="35sp" />
+
+</RelativeLayout>

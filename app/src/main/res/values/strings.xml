@@ -8,11 +8,34 @@
 
     <string-array name="main_menu_items">
         <item>Instrucciones</item>
-        <item>Cursos</item>
+        <item>Curso: Servicio al Cliente</item>
     </string-array>
 
     <string-array name="main_menu_description">
         <item>Reglas generales de los cursos</item>
         <item>Lista de cursos disponibles</item>
+    </string-array>
+
+    <string-array name="main_menu_icons">
+        <item>iconoinformación1.png</item>
+        <item>Icon1evaluacion.png</item>
+    </string-array>
+
+    <string-array name="courses_content">
+        <item>Manual</item>
+        <item>Ejercicios</item>
+        <item>Examen Final</item>
+    </string-array>
+
+    <string-array name="courses_content_icons">
+        <item>iconomanual1.png</item>
+        <item>icon1ejercicio.png</item>
+        <item>Icon1evaluacion.png</item>
+    </string-array>
+
+    <string-array name="courses_content_descriptions">
+        <item>Información principal del contenido del curso</item>
+        <item>Ejercicios tipo para practicar</item>
+        <item>Examen final del curso</item>
     </string-array>
 </resources>
