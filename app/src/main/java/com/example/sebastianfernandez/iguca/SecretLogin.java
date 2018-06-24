@@ -86,7 +86,7 @@ public class SecretLogin extends AppCompatActivity {
                         statusText.setText( "Ingreso exitoso" );
                         FirebaseUser user = mAuth.getCurrentUser();
                         progressBar.setVisibility( View.INVISIBLE );
-                        Intent showAdminCoursesActivity = new Intent( getApplicationContext(), AdminListCourses.class );
+                        Intent showAdminCoursesActivity = new Intent( getApplicationContext(), AdminListCompanies.class );
                         startActivity( showAdminCoursesActivity );
                     } else {
                         // If sign in fails, display a message to the user.
