@@ -10,8 +10,10 @@
         android:layout_width="460dp"
         android:layout_height="42dp"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="98dp"
+        android:layout_marginLeft="98dp"
         android:layout_marginTop="23dp"
         android:text="TextView"
         android:textSize="24sp" />
@@ -21,6 +23,7 @@
         android:layout_width="451dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/main_list_item_name"
+        android:layout_alignLeft="@id/main_list_item_name"
         android:layout_below="@+id/main_list_item_name"
         android:layout_marginBottom="23dp"
         android:layout_marginTop="2dp"
@@ -31,9 +34,12 @@
         android:id="@+id/main_list_item_icon"
         android:layout_width="63dp"
         android:layout_height="59dp"
+        android:contentDescription="listItemIcon"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         app:srcCompat="@mipmap/instructions_image" />
 
 </RelativeLayout>
