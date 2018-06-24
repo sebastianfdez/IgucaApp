@@ -31,6 +31,12 @@ public class ListItemAdaptor extends BaseAdapter {
         assetManager = c.getAssets();
     }
 
+    public ListItemAdaptor(Context c, String[] i) {
+        listItems = i;
+        mInflator = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assetManager = c.getAssets();
+    }
+
     @Override
     public int getCount() {
         return listItems.length;
@@ -54,8 +60,14 @@ public class ListItemAdaptor extends BaseAdapter {
         ImageView iconIV = (ImageView) v.findViewById(R.id.main_list_item_icon);
 
         String name = listItems[position];
-        String desc = listItemsDescriptions[position];
-        String iconpath = listItemsIcons[position];
+        String desc = "";
+        String iconpath = "";
+        if (listItemsDescriptions != null) {
+            desc = listItemsDescriptions[position];
+        }
+        if (listItemsIcons != null) {
+            iconpath = listItemsIcons[position];
+        }
 
         nameTV.setText(name);
         descriptionTV.setText(desc);

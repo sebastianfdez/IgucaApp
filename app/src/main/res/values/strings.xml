@@ -8,12 +8,12 @@
 
     <string-array name="main_menu_items">
         <item>Instrucciones</item>
-        <item>Curso: Servicio al Cliente</item>
+        <item>Curso: Excelencia Atencion Cliente</item>
     </string-array>
 
     <string-array name="main_menu_description">
         <item>Reglas generales de los cursos</item>
-        <item>Lista de cursos disponibles</item>
+        <item>Curso para aprender sobre atencion al cliente</item>
     </string-array>
 
     <string-array name="main_menu_icons">

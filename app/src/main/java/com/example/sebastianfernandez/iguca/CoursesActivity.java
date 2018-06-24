@@ -36,7 +36,7 @@ public class CoursesActivity extends AppCompatActivity {
                 if (position == 0) {
                     Intent showCourseManualActivity = new Intent(getApplicationContext(), CourseManualActivity.class);
                     startActivity(showCourseManualActivity);
-                } else if (position == 1) {
+                } else if (position == 2) {
                     Intent showCourseExercisesActivity = new Intent(getApplicationContext(), CourseExercisesActivity.class);
                     startActivity(showCourseExercisesActivity);
                 }

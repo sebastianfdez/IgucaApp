@@ -26,7 +26,10 @@
         <activity android:name=".InstructionsActivity" />
         <activity android:name=".CoursesActivity" />
         <activity android:name=".CourseManualActivity" />
-        <activity android:name=".CourseExercisesActivity"></activity>
+        <activity android:name=".CourseExercisesActivity" />
+        <activity android:name=".SecretLogin" />
+        <activity android:name=".AdminListCourses" />
+        <activity android:name=".AdminCoursesList"></activity>
     </application>
 
 </manifest>
