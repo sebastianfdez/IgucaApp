@@ -75,7 +75,6 @@ public class ListItemAdaptor extends BaseAdapter {
             InputStream is = assetManager.open("" + iconpath);
             Bitmap bitmap = BitmapFactory.decodeStream(is);
             iconIV.setImageBitmap(bitmap);
-            // iconIV.setImageURI( Uri.parse("//assets/" + iconpath));
         } catch (IOException e) {
             Log.e("ListITemAdaptor", e.getMessage());
         }

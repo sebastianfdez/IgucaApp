@@ -9,6 +9,9 @@ import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 import com.github.barteksc.pdfviewer.util.FitPolicy;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.io.File;
 
 public class InstructionsActivity extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener,
         OnPageErrorListener {
@@ -30,7 +33,10 @@ public class InstructionsActivity extends AppCompatActivity implements OnPageCha
 
         pdfView = (PDFView) findViewById(R.id.pdfView);
 
-        pdfView.fromAsset(pdfName)
+        FirebaseStorage fs = FirebaseStorage.getInstance ();
+        File dir = new File ( getCacheDir (), "" );
+
+        pdfView.fromFile (new File ( "/data/data/com.example.sebastianfernandez.iguca/cache/1529899977381Manual-249665593.pdf" ) )
                 .defaultPage(pageNumber)
                 .onPageChange(this)
                 .enableAnnotationRendering(true)

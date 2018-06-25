@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="98dp"
         android:layout_marginLeft="98dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="27dp"
         android:text="TextView"
         android:textSize="24sp" />
 
@@ -23,10 +23,8 @@
         android:layout_width="451dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/main_list_item_name"
-        android:layout_alignLeft="@id/main_list_item_name"
+        android:layout_alignLeft="@+id/main_list_item_name"
         android:layout_below="@+id/main_list_item_name"
-        android:layout_marginBottom="23dp"
-        android:layout_marginTop="2dp"
         android:text="TextView"
         android:textSize="16sp" />
 
@@ -40,6 +38,6 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        app:srcCompat="@mipmap/instructions_image" />
+        app:srcCompat="@mipmap/companies" />
 
 </RelativeLayout>
