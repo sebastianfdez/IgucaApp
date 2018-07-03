@@ -38,13 +38,13 @@
 
     <ImageView
         android:id="@+id/secretLoginIV"
-        android:layout_width="198dp"
+        android:layout_width="398dp"
         android:layout_height="176dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:contentDescription="LogoIguca"
         app:layout_constraintTop_toBottomOf="@+id/myListView"
-        app:srcCompat="@mipmap/iguca_logo" />
+        app:srcCompat="@drawable/logo_transparente" />
 
 </android.support.constraint.ConstraintLayout>
