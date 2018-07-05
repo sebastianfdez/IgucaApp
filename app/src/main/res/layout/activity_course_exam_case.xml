@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CourseExercises">
+    tools:context=".CourseExamCase">
 
     <com.github.barteksc.pdfviewer.PDFView
-        android:id="@+id/courseExercisePdfView"
+        android:id="@+id/courseExamCasePdfView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

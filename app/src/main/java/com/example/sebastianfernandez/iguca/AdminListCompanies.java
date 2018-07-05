@@ -1,8 +1,10 @@
 package com.example.sebastianfernandez.iguca;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -85,6 +87,43 @@ public class AdminListCompanies extends AppCompatActivity {
         return dir.delete();
     }
 
+    public void confirmResults() {
+        Intent secretLoginIntent = new Intent();
+        secretLoginIntent.putExtra("result", selectedCoursesIds.get ( 0 ));
+        if (getParent() == null) {
+            setResult( Activity.RESULT_OK, secretLoginIntent);
+        }
+        else {
+            getParent().setResult(Activity.RESULT_OK, secretLoginIntent);
+        }
+
+        SharedPreferences sharedPref = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putInt ( "CoursesLength", selectedCoursesIds.size () );
+        for (Integer i = 0; i < selectedCoursesIds.size (); i++) {
+            String key = selectedCoursesIds.get ( i );
+            editor.putString ( "CourseKey" + String.valueOf ( i ), key );
+            editor.putString ( "CourseName" + String.valueOf ( i ), ((HashMap<String, String>)dataSnapshot.child ( "Cursos" ).child ( selectedCoursesIds.get ( i ) ).getValue ()).get ( "name" ));
+            ArrayList<HashMap<String, Object>> questions = ((HashMap<String, ArrayList<HashMap<String, Object >>>)dataSnapshot.child ( "Cursos" ).child ( key ).getValue ()).get ( "finalExam" );
+            ArrayList<HashMap<String, Object>> newQuestions = new ArrayList<HashMap<String, Object>> ();
+            for (Integer j = 0; j < questions.size (); j++) {
+                HashMap<String, Object> newQuestion = new HashMap<String, Object>();
+                for (String key_ : questions.get ( j ).keySet()) {
+                    if (questions.get ( j ).get ( String.valueOf(key_) ).equals ( "" )) {
+                        newQuestion.put ( String.valueOf(key_), "-" );
+                    } else {
+                        newQuestion.put ( String.valueOf(key_), questions.get ( j ).get ( String.valueOf(key_) ) );
+                    }
+                }
+                newQuestions.add ( j, newQuestion );
+            }
+            editor.putString ( "FinalExam" + key, newQuestions.toString ());
+        }
+        editor.commit();
+        finish();
+    }
+
     public void displayCompanies() {
 
         selectedCoursesIds = new ArrayList <String> ();
@@ -141,7 +180,7 @@ public class AdminListCompanies extends AppCompatActivity {
                         if (selectedCoursesIds.size () > 0) {
                             companyNames[position] = companyNames[position] + " ( " + selectedCoursesIds.size () + " )";
                         }
-                        for (Integer j = 0; j < courses.size (); j++) {
+                        for (Integer j = 0; j < companies.size (); j++) {
                             TextView nameTV = ((View) coursesListView.getChildAt ( j )).findViewById ( R.id.main_list_item_name );
                             nameTV.setText ( companyNames[j] );
 
@@ -235,15 +274,7 @@ public class AdminListCompanies extends AppCompatActivity {
                                 // Local temp file has been created
                                 succesCount[0]++;
                                 if (succesCount[0] == succesExpect[0]) {
-                                    Intent secretLoginIntent = new Intent();
-                                    secretLoginIntent.putExtra("result", selectedCoursesIds);
-                                    if (getParent() == null) {
-                                        setResult(Activity.RESULT_OK, secretLoginIntent);
-                                    }
-                                    else {
-                                        getParent().setResult(Activity.RESULT_OK, secretLoginIntent);
-                                    }
-                                    finish();
+                                    confirmResults ();
                                 }
                             }
                         }).addOnFailureListener(new OnFailureListener () {

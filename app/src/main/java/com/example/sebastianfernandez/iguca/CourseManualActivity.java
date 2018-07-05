@@ -1,5 +1,6 @@
 package com.example.sebastianfernandez.iguca;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -9,6 +10,8 @@ import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 import com.github.barteksc.pdfviewer.util.FitPolicy;
+
+import java.io.File;
 
 public class CourseManualActivity extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener,
         OnPageErrorListener {
@@ -29,8 +32,11 @@ public class CourseManualActivity extends AppCompatActivity implements OnPageCha
 
 
         pdfView = (PDFView) findViewById(R.id.courseManualPdfView);
+        String i = getSharedPreferences("myPref", Context.MODE_PRIVATE).getString ("SelectedCourse","");
+        String courseKey = getSharedPreferences ( "myPref", Context.MODE_PRIVATE).getString ("CourseKey" + i,"");
+        pdfName = "Manual " + getSharedPreferences ( "myPref", Context.MODE_PRIVATE).getString ("CourseName" + i,"");
 
-        pdfView.fromAsset(pdfName)
+        pdfView.fromFile (new File ( "/data/data/com.example.sebastianfernandez.iguca/cache/Manual/" + courseKey + ".pdf" ) )
                 .defaultPage(pageNumber)
                 .onPageChange(this)
                 .enableAnnotationRendering(true)

@@ -1,5 +1,6 @@
 package com.example.sebastianfernandez.iguca;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -44,6 +45,22 @@ public class SecretLogin extends AppCompatActivity {
         //db = FirebaseDatabase.getInstance().getReference( "igucapp/Cursos" );
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult( requestCode, resultCode, data );
+
+        Log.d ( "h", "l" );
+
+        if (requestCode == 5) {
+            if(resultCode == Activity.RESULT_OK){
+                String result = data.getStringExtra("result");
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }
+
     private void getViewModels() {
         enterButton = (Button) findViewById( R.id.enterButtonSecretLogin );
         mailText = (EditText) findViewById( R.id.mailEditText );
@@ -86,8 +103,8 @@ public class SecretLogin extends AppCompatActivity {
                         statusText.setText( "Ingreso exitoso" );
                         FirebaseUser user = mAuth.getCurrentUser();
                         progressBar.setVisibility( View.INVISIBLE );
-                        Intent showAdminCoursesActivity = new Intent( getApplicationContext(), AdminListCompanies.class );
-                        startActivity( showAdminCoursesActivity );
+                        Intent showAdminCoursesActivity = new Intent( getBaseContext (), AdminListCompanies.class );
+                        startActivityForResult ( showAdminCoursesActivity, 5);
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w( TAG, "signInWithEmail:failure", task.getException() );

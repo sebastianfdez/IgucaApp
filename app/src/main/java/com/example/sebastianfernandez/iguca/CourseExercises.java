@@ -1,5 +1,6 @@
 package com.example.sebastianfernandez.iguca;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -10,17 +11,19 @@ import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 import com.github.barteksc.pdfviewer.util.FitPolicy;
 
-public class InstructionsActivity extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener,
+import java.io.File;
+
+public class CourseExercises extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener,
         OnPageErrorListener {
 
     Integer pageNumber = 0;
-    String pdfName = "ManualAtencionCliente.pdf";
+    String pdfName = "manualexcelencia.pdf";
     PDFView pdfView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_instructions);
+        super.onCreate ( savedInstanceState );
+        setContentView ( R.layout.activity_course_exercises );
 
         if (savedInstanceState != null)
         {
@@ -28,25 +31,21 @@ public class InstructionsActivity extends AppCompatActivity implements OnPageCha
         }
 
 
-        pdfView = (PDFView) findViewById(R.id.pdfView);
+        pdfView = (PDFView) findViewById(R.id.courseExercisePdfView);
+        String i = getSharedPreferences("myPref", Context.MODE_PRIVATE).getString ("SelectedCourse","");
+        String courseKey = getSharedPreferences ( "myPref", Context.MODE_PRIVATE).getString ("CourseKey" + i,"");
+        pdfName = "Ejercicios " + getSharedPreferences ( "myPref", Context.MODE_PRIVATE).getString ("CourseName" + i,"");
 
-        pdfView.fromAsset(pdfName)
+        pdfView.fromFile (new File ( "/data/data/com.example.sebastianfernandez.iguca/cache/Ejercicios/" + courseKey + ".pdf" ) )
                 .defaultPage(pageNumber)
                 .onPageChange(this)
                 .enableAnnotationRendering(true)
                 .onLoad(this)
-                .scrollHandle(new DefaultScrollHandle(this))
+                .scrollHandle(new DefaultScrollHandle (this))
                 .spacing(10) // in dp
                 .onPageError(this)
-                .pageFitPolicy(FitPolicy.BOTH)
+                .pageFitPolicy( FitPolicy.BOTH)
                 .load();
-
-    }
-
-    @Override
-    public void onPageChanged(int page, int pageCount) {
-        pageNumber = page;
-        setTitle(String.format("%s %s / %s", pdfName, page + 1, pageCount));
     }
 
     @Override
@@ -55,6 +54,12 @@ public class InstructionsActivity extends AppCompatActivity implements OnPageCha
         {
             pdfView.jumpTo(pageNumber);
         }
+    }
+
+    @Override
+    public void onPageChanged(int page, int pageCount) {
+        pageNumber = page;
+        setTitle(String.format("%s %s / %s", pdfName, page + 1, pageCount));
     }
 
     @Override
