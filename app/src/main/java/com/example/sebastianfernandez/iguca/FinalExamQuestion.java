@@ -12,6 +12,6 @@ public class FinalExamQuestion {
     public String h = "";
     public String correct = "";
     public String question = "";
-    public String number = "";
+    public Integer number = 0;
 
 }

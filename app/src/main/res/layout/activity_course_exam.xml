@@ -5,14 +5,84 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:padding="23dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:orientation="vertical">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/questionTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="50dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="35dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/alternativesTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/questionTV"
+                android:layout_marginBottom="50dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
+                android:text=""
+                android:textSize="28dp" />
+
+            <LinearLayout
+                android:id="@+id/buttonsListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/alternativesTV"
+                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
+                android:orientation="vertical">
+            </LinearLayout>
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonBack"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/buttonsListView"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginStart="0dp"
+                    android:text="Anterior" />
+
+                <Button
+                    android:id="@+id/buttonNext"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/buttonsListView"
+                    android:layout_marginLeft="150dp"
+                    android:text="Siguiente" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="472dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:text="answer" />
 </RelativeLayout>

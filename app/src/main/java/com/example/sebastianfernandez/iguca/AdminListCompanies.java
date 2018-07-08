@@ -63,6 +63,7 @@ public class AdminListCompanies extends AppCompatActivity {
         setContentView ( R.layout.activity_admin_list_companies );
 
         mAuth = FirebaseAuth.getInstance ();
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mDatabase = FirebaseDatabase.getInstance ().getReference ();
 
         storage = FirebaseStorage.getInstance ();
@@ -105,20 +106,6 @@ public class AdminListCompanies extends AppCompatActivity {
             String key = selectedCoursesIds.get ( i );
             editor.putString ( "CourseKey" + String.valueOf ( i ), key );
             editor.putString ( "CourseName" + String.valueOf ( i ), ((HashMap<String, String>)dataSnapshot.child ( "Cursos" ).child ( selectedCoursesIds.get ( i ) ).getValue ()).get ( "name" ));
-            ArrayList<HashMap<String, Object>> questions = ((HashMap<String, ArrayList<HashMap<String, Object >>>)dataSnapshot.child ( "Cursos" ).child ( key ).getValue ()).get ( "finalExam" );
-            ArrayList<HashMap<String, Object>> newQuestions = new ArrayList<HashMap<String, Object>> ();
-            for (Integer j = 0; j < questions.size (); j++) {
-                HashMap<String, Object> newQuestion = new HashMap<String, Object>();
-                for (String key_ : questions.get ( j ).keySet()) {
-                    if (questions.get ( j ).get ( String.valueOf(key_) ).equals ( "" )) {
-                        newQuestion.put ( String.valueOf(key_), "-" );
-                    } else {
-                        newQuestion.put ( String.valueOf(key_), questions.get ( j ).get ( String.valueOf(key_) ) );
-                    }
-                }
-                newQuestions.add ( j, newQuestion );
-            }
-            editor.putString ( "FinalExam" + key, newQuestions.toString ());
         }
         editor.commit();
         finish();
