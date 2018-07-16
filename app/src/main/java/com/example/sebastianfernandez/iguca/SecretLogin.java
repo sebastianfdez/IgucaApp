@@ -1,6 +1,5 @@
 package com.example.sebastianfernandez.iguca;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,7 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SecretLogin extends AppCompatActivity {
 
@@ -34,31 +33,17 @@ public class SecretLogin extends AppCompatActivity {
     private String mail;
     private String pass;
 
+    private Boolean buttonPressed = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_secret_login );
 
         this.getViewModels();
+        buttonPressed = false;
 
         mAuth = FirebaseAuth.getInstance();
-        //db = FirebaseDatabase.getInstance().getReference( "igucapp/Cursos" );
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult( requestCode, resultCode, data );
-
-        Log.d ( "h", "l" );
-
-        if (requestCode == 5) {
-            if(resultCode == Activity.RESULT_OK){
-                String result = data.getStringExtra("result");
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
-        }
     }
 
     private void getViewModels() {
@@ -86,7 +71,6 @@ public class SecretLogin extends AppCompatActivity {
                 }
                 progressBar.setVisibility( View.VISIBLE );
                 signIn( mail, pass );
-
             }
         } );
     }
@@ -101,14 +85,18 @@ public class SecretLogin extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d( TAG, "signInWithEmail:success" );
                         statusText.setText( "Ingreso exitoso" );
-                        FirebaseUser user = mAuth.getCurrentUser();
                         progressBar.setVisibility( View.INVISIBLE );
                         Intent showAdminCoursesActivity = new Intent( getBaseContext (), AdminListCompanies.class );
                         startActivityForResult ( showAdminCoursesActivity, 5);
+                        if (FirebaseDatabase.getInstance().getReference() == null) {
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            database.setPersistenceEnabled(true);
+                        }
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w( TAG, "signInWithEmail:failure", task.getException() );
                         statusText.setText( "Ingreso fallido" );
+                        buttonPressed = false;
                         progressBar.setVisibility( View.INVISIBLE );
                     }
                 }

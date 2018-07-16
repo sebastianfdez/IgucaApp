@@ -35,8 +35,8 @@ public class CourseExerciseMenu extends AppCompatActivity {
         exerciseDescriptions[0] = "Ejercicios de prueba para practicar";
         exerciseDescriptions[1] = "Pauta con soluciones";
         exerciseIcons = new String[2];
-        exerciseIcons[0] = "exercise.png";
-        exerciseIcons[1] = "solutions.png";
+        exerciseIcons[0] = "IconoCaso.png";
+        exerciseIcons[1] = "IconoEjercicios.png";
         exercisesListView = findViewById ( R.id.exerciseMenuLV );
         ListItemAdaptor itemAdapter = new ListItemAdaptor(this, exerciseContent, exerciseDescriptions, exerciseIcons);
         exercisesListView.setAdapter(itemAdapter);

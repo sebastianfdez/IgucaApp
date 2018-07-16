@@ -14,7 +14,7 @@ public class InstructionsActivity extends AppCompatActivity implements OnPageCha
         OnPageErrorListener {
 
     Integer pageNumber = 0;
-    String pdfName = "ManualAtencionCliente.pdf";
+    String pdfName = "GuíadelparticipanteenPlataforma.pdf";
     PDFView pdfView;
 
     @Override

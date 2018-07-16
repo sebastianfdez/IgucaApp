@@ -5,20 +5,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
     private String TAG = "MainActivity";
-    private FirebaseAuth mAuth;
 
     private TextView textView;
     private ListView myListView;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPref;
 
+    private Integer secretClicks = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -38,8 +42,30 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPref  = getSharedPreferences("myPref", Context.MODE_PRIVATE);
 
-        Intent loginIntent = new Intent( getApplicationContext(), LoginActivity.class );
-        // startActivityForResult(loginIntent, 2);
+        final Intent loginIntent = new Intent( getApplicationContext(), LoginActivity.class );
+        if (sharedPref.getString ( "UserName", "" ) == "") {
+            Log.d("long", sharedPref.getString ( "UserName", "" ));
+            startActivity(loginIntent);
+        }
+
+        findViewById ( R.id.buttonLogin ).setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                startActivity ( loginIntent );
+            }
+        } );
+
+        File imgFile = new  File(getBaseContext ().getCacheDir (), "companyImg/companyIcon.png");
+
+        if(imgFile.exists()){
+
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+            ImageView myImage = (ImageView) findViewById(R.id.companyIV);
+
+            myImage.setImageBitmap(myBitmap);
+
+        }
 
         this.makeMainList();
         this.createSecretLogin();
@@ -47,12 +73,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createSecretLogin() {
+        secretClicks = 0;
         mySecretLogin = (ImageView) findViewById( R.id.secretLoginIV );
         mySecretLogin.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent showSecretLoginActivity = new Intent( getApplicationContext(), SecretLogin.class );
-                startActivityForResult ( showSecretLoginActivity, 3);
+                secretClicks++;
+                if (secretClicks > 10) {
+                    Intent showSecretLoginActivity = new Intent ( getApplicationContext (), SecretLogin.class );
+                    startActivityForResult ( showSecretLoginActivity, 3 );
+                    secretClicks = 0;
+                }
             }
         } );
     }

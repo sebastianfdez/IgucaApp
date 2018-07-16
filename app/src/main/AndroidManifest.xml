@@ -6,23 +6,21 @@
         android:allowBackup="true"
         android:icon="@mipmap/iguca_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/iguca_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"
+                    android:label="@string/app_name"
+                    android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity android:name=".LoginActivity"/>
         <activity android:name=".InstructionsActivity" />
         <activity android:name=".CoursesActivity" />
         <activity android:name=".CourseManualActivity" />

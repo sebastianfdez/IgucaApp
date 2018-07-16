@@ -61,6 +61,7 @@ public class CourseManualActivity extends AppCompatActivity implements OnPageCha
     public void onPageChanged(int page, int pageCount) {
         pageNumber = page;
         setTitle(String.format("%s %s / %s", pdfName, page + 1, pageCount));
+        // getSharedPreferences ( "myPref", Context.MODE_PRIVATE).edit ().putString (  )
     }
 
     @Override

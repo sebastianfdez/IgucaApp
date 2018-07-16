@@ -6,6 +6,7 @@
     android:background="@color/colorBackground"
     android:padding="23dp">
     <ScrollView
+        android:id="@+id/examScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
@@ -59,6 +60,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="50dp"
+                android:layout_marginBottom="20dp"
+                android:weightSum="2"
                 android:orientation="horizontal">
 
                 <Button
@@ -70,6 +73,7 @@
                     android:layout_below="@+id/buttonsListView"
                     android:layout_marginLeft="0dp"
                     android:layout_marginStart="0dp"
+                    android:layout_weight="0.95"
                     android:text="Anterior" />
 
                 <Button
@@ -77,7 +81,8 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/buttonsListView"
-                    android:layout_marginLeft="150dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.95"
                     android:text="Siguiente" />
 
             </LinearLayout>
