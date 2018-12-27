@@ -122,6 +122,10 @@ public class CourseExamActivity extends AppCompatActivity {
             editor.commit ();
         } else {
             score = 0;
+            SharedPreferences.Editor editor = sharedPreferences.edit ();
+            editor.putInt ( courseKey + "score" + sharedPreferences.getInt ( courseKey + "takes", 0 ), score );
+            editor.putInt ( courseKey + "takes", sharedPreferences.getInt ( courseKey + "takes", 0 ) + 1 );
+            editor.commit ();
         }
     }
 
@@ -248,6 +252,7 @@ public class CourseExamActivity extends AppCompatActivity {
                 FinalExamQuestion newQuestion = new FinalExamQuestion ();
                 newQuestion.question = ( String ) examQuestion.get ( "question" );
                 newQuestion.number = ( int ) ( long ) examQuestion.get ( "number" );
+                newQuestion.hasFile = ( boolean ) examQuestion.get ( "hasFile" );
                 examQuestions[index] = newQuestion;
                 index++;
             }
@@ -418,6 +423,11 @@ public class CourseExamActivity extends AppCompatActivity {
             String questionText = "PREGUNTA " + (currentQuestion + 1) + "/" + examQuestions.length + "\n\n" + question.question;
             answerText.setText ( userAnswersOpen[currentQuestion] );
             questionTV.setText ( questionText );
+            if (question.hasFile) {
+                questionFileButton.setVisibility ( View.VISIBLE );
+            } else {
+                questionFileButton.setVisibility ( View.INVISIBLE );
+            }
         }
     }
 

@@ -14,5 +14,6 @@ public class FinalExamQuestion {
     public String question = "";
     public Integer number = 0;
     public Boolean alternatives = true;
+    public Boolean hasFile = false;
 
 }

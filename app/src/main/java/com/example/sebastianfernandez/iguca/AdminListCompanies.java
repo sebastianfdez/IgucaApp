@@ -302,7 +302,7 @@ public class AdminListCompanies extends AppCompatActivity {
                         StorageRefs = new StorageReference[4 + numQuestion];
                         for ( Integer j = 0; j < numQuestion; j++) {
                             StorageReference file = ( StorageReference ) (storage.getReference ().child ( newCourseKey + "/Question" + (j+1) ));
-                            if (file != null) {
+                            if ((Boolean ) ((HashMap)finalExamOpen.get ( j )).get ( "hasFile" )) {
                                 StorageRefs[4 + j] = file;
                                 succesExpect[0]++;
                             }
@@ -323,23 +323,25 @@ public class AdminListCompanies extends AppCompatActivity {
 
                         //File localFile = File.createTempFile(newCourseKey, ".pdf", filesDirectories[fileNum]);
                         if (fileNum > 3) {
-                            File localFile = new File ( questionDirectory, "Question" + (fileNum - 3) + ".pdf");
-                            StorageRefs[fileNum].getFile ( localFile ).addOnSuccessListener ( new OnSuccessListener <FileDownloadTask.TaskSnapshot> () {
-                                @Override
-                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                    // Local temp file has been created
-                                    succesCount[0]++;
-                                    if (succesCount[0] == succesExpect[0]) {
-                                        confirmResults ();
+                            if (StorageRefs[fileNum] != null) {
+                                File localFile = new File ( questionDirectory, "Question" + (fileNum - 3) + ".pdf" );
+                                StorageRefs[fileNum].getFile ( localFile ).addOnSuccessListener ( new OnSuccessListener <FileDownloadTask.TaskSnapshot> () {
+                                    @Override
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                        // Local temp file has been created
+                                        succesCount[0]++;
+                                        if (succesCount[0] == succesExpect[0]) {
+                                            confirmResults ();
+                                        }
                                     }
-                                }
-                            } ).addOnFailureListener ( new OnFailureListener () {
-                                @Override
-                                public void onFailure(@NonNull Exception exception) {
-                                    // Handle any errors
-                                    Log.d ( "!", "Archivo Question no encontrado" );
-                                }
-                            } );
+                                } ).addOnFailureListener ( new OnFailureListener () {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        // Handle any errors
+                                        Log.d ( "!", "Archivo Question no encontrado" );
+                                    }
+                                } );
+                            }
                         } else {
                             File localFile = new File ( filesDirectories[fileNum], newCourseKey + ".pdf" );
                             StorageRefs[fileNum].getFile ( localFile ).addOnSuccessListener ( new OnSuccessListener <FileDownloadTask.TaskSnapshot> () {
