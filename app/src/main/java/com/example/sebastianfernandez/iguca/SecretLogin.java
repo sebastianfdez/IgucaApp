@@ -16,12 +16,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SecretLogin extends AppCompatActivity {
 
     private String TAG = "Secret Login";
 
+    private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
 
     private Button enterButton;
@@ -36,6 +38,20 @@ public class SecretLogin extends AppCompatActivity {
     private Boolean buttonPressed = false;
 
     @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_secret_login );
@@ -44,6 +60,24 @@ public class SecretLogin extends AppCompatActivity {
         buttonPressed = false;
 
         mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+
+//                if (user != null) {
+//                    // User is signed in
+//                    //redirect
+//                    updateUI(user);
+//
+//                } else {
+//                    // User is signed out
+//                    Log.d(TAG, "onAuthStateChanged:signed_out");
+//                    updateUI(null);
+//                }
+
+            }
+        };
     }
 
     private void getViewModels() {
@@ -81,6 +115,7 @@ public class SecretLogin extends AppCompatActivity {
             .addOnCompleteListener( this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
+                    Log.d(TAG, " Verification : signIn With Email:onComplete:" + task.isSuccessful());
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d( TAG, "signInWithEmail:success" );

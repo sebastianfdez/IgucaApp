@@ -4,17 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
+    android:fillViewport="true"
     android:padding="23dp">
     <ScrollView
         android:id="@+id/examScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="23dp"
+        android:fillViewport="true">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -41,6 +44,7 @@
                 android:layout_below="@+id/questionTV"
                 android:layout_marginBottom="50dp"
                 android:layout_marginLeft="0dp"
+                android:visibility="gone"
                 android:layout_marginStart="0dp"
                 android:text=""
                 android:textSize="28dp" />
@@ -53,16 +57,62 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/alternativesTV"
                 android:layout_marginLeft="0dp"
+                android:visibility="gone"
                 android:layout_marginStart="0dp"
                 android:orientation="vertical">
             </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/questionPDFView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/buttonsListView"
+                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="40dp"
+                android:visibility="gone"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/buttonQuestionPDFView"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="250dp"
+                    android:gravity="center"
+                    android:background="@color/colorPrimary"
+                    android:textColor="#FFFFFF"
+                    android:text="Ver archivo adjunto"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/answerText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/questionPDFView"
+                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:gravity="top"
+                    android:inputType="text|textMultiLine"
+                    android:hint="Ingresa aqui tu respuesta" />
+            </LinearLayout>
+
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="20dp"
-                android:weightSum="2"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/answerText"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <Button
                     android:id="@+id/buttonBack"
@@ -86,7 +136,7 @@
                     android:text="Siguiente" />
 
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
 

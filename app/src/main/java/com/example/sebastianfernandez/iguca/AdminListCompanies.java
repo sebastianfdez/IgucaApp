@@ -252,16 +252,6 @@ public class AdminListCompanies extends AppCompatActivity {
             public void onClick(View v) {
                 cleanDir ( (getBaseContext ()).getCacheDir () );
 
-                File[] filesDirectories = new File[4];
-                filesDirectories[0] = new File ( getBaseContext ().getCacheDir (), "Manual" );
-                filesDirectories[0].mkdir ();
-                filesDirectories[1] = new File ( getBaseContext ().getCacheDir (), "Ejercicios" );
-                filesDirectories[1].mkdir ();
-                filesDirectories[2] = new File ( getBaseContext ().getCacheDir (), "Examen" );
-                filesDirectories[2].mkdir ();
-                filesDirectories[3] = new File ( getBaseContext ().getCacheDir (), "Respuestas" );
-                filesDirectories[3].mkdir ();
-
                 File companyImageDir = new File ( getBaseContext ().getCacheDir (), "companyImg");
                 storage.getReference ().child ( "Icons/" + companySelectedKey ).getFile ( new File(companyImageDir, "companyIcon.png") )
                         .addOnSuccessListener ( new OnSuccessListener <FileDownloadTask.TaskSnapshot> () {
@@ -281,41 +271,94 @@ public class AdminListCompanies extends AppCompatActivity {
                 final Integer[] succesExpect = {selectedCoursesIds.size () * 4};
                 final Integer[] succesCount = {0};
 
-                new File ( getBaseContext ().getCacheDir (), "Manual" );
+                File[] filesDirectories = new File[4];
+                filesDirectories[0] = new File ( getBaseContext ().getCacheDir (), "Manual" );
+                filesDirectories[0].mkdir ();
+                filesDirectories[1] = new File ( getBaseContext ().getCacheDir (), "Ejercicios" );
+                filesDirectories[1].mkdir ();
+                filesDirectories[2] = new File ( getBaseContext ().getCacheDir (), "Examen" );
+                filesDirectories[2].mkdir ();
+                filesDirectories[3] = new File ( getBaseContext ().getCacheDir (), "Respuestas" );
+                filesDirectories[3].mkdir ();
+
+                getSharedPreferences ( "myPref", Context.MODE_PRIVATE ).edit ().putString ( "UserName", "" ).commit ();
+                getSharedPreferences ( "myPref", Context.MODE_PRIVATE ).edit ().putString ( "UserMail", "" ).commit ();
+                getSharedPreferences ( "myPref", Context.MODE_PRIVATE ).edit ().putString ( "UserRut", "" ).commit ();
+
                 for ( Integer i = 0; i < selectedCoursesIds.size (); i++ ) {
                     String newCourseKey = ( String ) dataSnapshot.child ( "Cursos" ).child ( selectedCoursesIds.get ( i ) ).getKey ();
-
-                    getSharedPreferences ( "myPref", Context.MODE_PRIVATE ).edit ().putString ( "UserName", "" ).commit ();
-                    getSharedPreferences ( "myPref", Context.MODE_PRIVATE ).edit ().putString ( "UserMail", "" ).commit ();
-                    getSharedPreferences ( "myPref", Context.MODE_PRIVATE ).edit ().putString ( "UserRut", "" ).commit ();
-
-                    StorageReference[] StorageRefs = new StorageReference[4];
+                    Boolean alternatives = ( Boolean ) dataSnapshot.child ( "Cursos" ).child ( selectedCoursesIds.get ( i ) ).child ( "alternatives" )
+                        .getValue ();
+                    StorageReference[] StorageRefs;
+                    ArrayList finalExamOpen = (ArrayList) dataSnapshot.child ( "Cursos" ).child ( selectedCoursesIds.get ( i ) ).child ( "finalExamOpen" ).getValue ();
+                    Integer numQuestion = 0;
+                    if (finalExamOpen != null) {
+                        numQuestion = finalExamOpen.size();
+                    }
+                    File questionDirectory = new File ( getBaseContext ().getCacheDir (), newCourseKey );
+                    if (alternatives) {
+                        StorageRefs = new StorageReference[4];
+                    } else {
+                        StorageRefs = new StorageReference[4 + numQuestion];
+                        for ( Integer j = 0; j < numQuestion; j++) {
+                            StorageReference file = ( StorageReference ) (storage.getReference ().child ( newCourseKey + "/Question" + (j+1) ));
+                            if (file != null) {
+                                StorageRefs[4 + j] = file;
+                                succesExpect[0]++;
+                            }
+                        }
+                    }
 
                     StorageRefs[0] = ( StorageReference ) (storage.getReference ().child ( newCourseKey + "/Manual" ));
                     StorageRefs[1] = ( StorageReference ) (storage.getReference ().child ( newCourseKey + "/Ejercicios" ));
                     StorageRefs[2] = ( StorageReference ) (storage.getReference ().child ( newCourseKey + "/Examen" ));
                     StorageRefs[3] = ( StorageReference ) (storage.getReference ().child ( newCourseKey + "/Respuestas" ));
 
-                    for ( Integer fileNum = 0; fileNum < 4; fileNum++ ) {
+                    if (!alternatives) {
+                        questionDirectory.mkdir ();
+                    }
+
+
+                    for ( Integer fileNum = 0; fileNum < StorageRefs.length; fileNum++ ) {
 
                         //File localFile = File.createTempFile(newCourseKey, ".pdf", filesDirectories[fileNum]);
-                        File localFile = new File ( filesDirectories[fileNum], newCourseKey + ".pdf" );
-                        StorageRefs[fileNum].getFile ( localFile ).addOnSuccessListener ( new OnSuccessListener <FileDownloadTask.TaskSnapshot> () {
-                            @Override
-                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                // Local temp file has been created
-                                succesCount[0]++;
-                                if (succesCount[0] == succesExpect[0]) {
-                                    confirmResults ();
+                        if (fileNum > 3) {
+                            File localFile = new File ( questionDirectory, "Question" + (fileNum - 3) + ".pdf");
+                            StorageRefs[fileNum].getFile ( localFile ).addOnSuccessListener ( new OnSuccessListener <FileDownloadTask.TaskSnapshot> () {
+                                @Override
+                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                    // Local temp file has been created
+                                    succesCount[0]++;
+                                    if (succesCount[0] == succesExpect[0]) {
+                                        confirmResults ();
+                                    }
                                 }
-                            }
-                        } ).addOnFailureListener ( new OnFailureListener () {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                                // Handle any errors
-                                Log.d ( "!", "H" );
-                            }
-                        } );
+                            } ).addOnFailureListener ( new OnFailureListener () {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle any errors
+                                    Log.d ( "!", "Archivo Question no encontrado" );
+                                }
+                            } );
+                        } else {
+                            File localFile = new File ( filesDirectories[fileNum], newCourseKey + ".pdf" );
+                            StorageRefs[fileNum].getFile ( localFile ).addOnSuccessListener ( new OnSuccessListener <FileDownloadTask.TaskSnapshot> () {
+                                @Override
+                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                    // Local temp file has been created
+                                    succesCount[0]++;
+                                    if (succesCount[0] == succesExpect[0]) {
+                                        confirmResults ();
+                                    }
+                                }
+                            } ).addOnFailureListener ( new OnFailureListener () {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle any errors
+                                    Log.d ( "!", "H" );
+                                }
+                            } );
+                        }
                     }
                 }
             }

@@ -13,5 +13,6 @@ public class FinalExamQuestion {
     public String correct = "";
     public String question = "";
     public Integer number = 0;
+    public Boolean alternatives = true;
 
 }
